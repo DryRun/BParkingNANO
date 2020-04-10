@@ -34,7 +34,7 @@ options.register('skip', 0,
     "skip first N events"
 )
 
-options.setDefault('maxEvents', 100)
+options.setDefault('maxEvents', 500)
 options.setDefault('tag', '10215')
 options.parseArguments()
 
@@ -46,8 +46,11 @@ extension = {False : 'data', True : 'mc'}
 outputFileNANO = cms.untracked.string('_'.join(['BParkNANO', extension[options.isMC], options.tag])+'.root')
 outputFileFEVT = cms.untracked.string('_'.join(['BParkFullEvt', extension[options.isMC], options.tag])+'.root')
 if not options.inputFiles:
-    options.inputFiles = ['/store/data/Run2018B/ParkingBPH4/MINIAOD/05May2019-v2/230000/6B5A24B1-0E6E-504B-8331-BD899EB60110.root'] if not options.isMC else \
-                         ['/store/cmst3/group/bpark/BToKmumu_1000Events_MINIAOD.root']
+    options.inputFiles = ['file:/afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/test/BdToKstarJpsi_ToKPiMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen_BF7A19E8-ED80-B841-A6EB-B583F36C1125.root']
+    # options.inputFiles = ['file:/afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/test/BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen_E313F59A-3E16-2342-B628-305F2AEEDCC5.root']
+    #options.inputFiles = ['/store/data/Run2018B/ParkingBPH4/MINIAOD/05May2019-v2/230000/6B5A24B1-0E6E-504B-8331-BD899EB60110.root'] if not options.isMC else \
+    #                     ['/store/cmst3/group/bpark/BToKmumu_1000Events_MINIAOD.root']
+
 annotation = '%s nevts:%d' % (outputFileNANO, options.maxEvents)
 
 from Configuration.StandardSequences.Eras import eras
@@ -104,7 +107,7 @@ process.FEVTDEBUGHLToutput = cms.OutputModule("PoolOutputModule",
 
 process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
     compressionAlgorithm = cms.untracked.string('LZMA'),
-    compressionLevel = cms.untracked.int32(6),
+    compressionLevel = cms.untracked.int32(9),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('NANOAOD'),
         filterName = cms.untracked.string('')
@@ -118,36 +121,45 @@ process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
 
 )
 
-
 # Additional output definition
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, globaltag, '')
 
-
 from PhysicsTools.BParkingNano.nanoBPark_cff import *
 process = nanoAOD_customizeMuonTriggerBPark(process)
 process = nanoAOD_customizeElectronFilteredBPark(process)
 process = nanoAOD_customizeTrackFilteredBPark(process)
 process = nanoAOD_customizeBToKLL(process)
-process = nanoAOD_customizeBToKstarEE(process)
+#process = nanoAOD_customizeBToKstarEE(process)
 process = nanoAOD_customizeBToKstarMuMu(process)
+#process = nanoAOD_customizeBToPhiEE(process)
+process = nanoAOD_customizeBToPhiMuMu(process)
 process = nanoAOD_customizeTriggerBitsBPark(process)
 
-
-
+# No skim on MC
+if options.isMC:
+    CountBToKmumu.minNumber     = 0
+    CountBToKee.minNumber       = 0
+    CountBToKstarMuMu.minNumber = 0
+    CountBToKstarEE.minNumber   = 0
+    CountBToPhiMuMu.minNumber   = 0
+    CountBToPhiEE.minNumber     = 0
 
 # Path and EndPath definitions
-process.nanoAOD_KMuMu_step = cms.Path(process.nanoSequence + process.nanoBKMuMuSequence + CountBToKmumu )
-process.nanoAOD_Kee_step   = cms.Path(process.nanoSequence + process.nanoBKeeSequence   + CountBToKee   )
+#process.nanoAOD_KMuMu_step = cms.Path(process.nanoSequence + process.nanoBKMuMuSequence + CountBToKmumu )
+#process.nanoAOD_Kee_step   = cms.Path(process.nanoSequence + process.nanoBKeeSequence   + CountBToKee   )
 process.nanoAOD_KstarMuMu_step = cms.Path(process.nanoSequence + process.KstarToKPiSequence + process.nanoBKstarMuMuSequence + CountBToKstarMuMu )
-process.nanoAOD_KstarEE_step  = cms.Path(process.nanoSequence+ process.KstarToKPiSequence + process.nanoBKstarEESequence + CountBToKstarEE  )
+#process.nanoAOD_KstarEE_step  = cms.Path(process.nanoSequence+ process.KstarToKPiSequence + process.nanoBKstarEESequence + CountBToKstarEE  )
+#process.nanoAOD_PhiMuMu_step = cms.Path(process.nanoSequence + process.PhiToKKSequence + process.nanoBPhiMuMuSequence + CountBToPhiMuMu )
+#process.nanoAOD_PhiEE_step  = cms.Path(process.nanoSequence+ process.PhiToKKSequence + process.nanoBPhiEESequence + CountBToPhiEE  )
 
 # customisation of the process.
 if options.isMC:
     from PhysicsTools.BParkingNano.nanoBPark_cff import nanoAOD_customizeMC
     nanoAOD_customizeMC(process)
+    process.countTrgMuons.minNumber = 0
 
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.FEVTDEBUGHLToutput_step = cms.EndPath(process.FEVTDEBUGHLToutput)
@@ -155,19 +167,23 @@ process.NANOAODoutput_step = cms.EndPath(process.NANOAODoutput)
 
 # Schedule definition
 process.schedule = cms.Schedule(
-                                process.nanoAOD_KMuMu_step,
-                                process.nanoAOD_Kee_step, 
+                                #process.nanoAOD_KMuMu_step,
+                                #process.nanoAOD_Kee_step, 
                                 process.nanoAOD_KstarMuMu_step,
-                                process.nanoAOD_KstarEE_step,
+                                #process.nanoAOD_KstarEE_step,
+                                #process.nanoAOD_PhiMuMu_step,
+                                #process.nanoAOD_PhiEE_step,
                                 process.endjob_step, 
                                 process.NANOAODoutput_step
                                )
 if options.wantFullRECO:
     process.schedule = cms.Schedule(
-                                    process.nanoAOD_KMuMu_step,
-                                    process.nanoAOD_Kee_step, 
+                                    #process.nanoAOD_KMuMu_step,
+                                    #process.nanoAOD_Kee_step, 
                                     process.nanoAOD_KstarMuMu_step,
-                                    process.nanoAOD_KstarEE_step,
+                                    #process.nanoAOD_KstarEE_step,
+                                    #process.nanoAOD_PhiMuMu_step,
+                                    #process.nanoAOD_PhiEE_step,
                                     process.endjob_step, 
                                     process.FEVTDEBUGHLToutput_step, 
                                     process.NANOAODoutput_step
@@ -177,10 +193,12 @@ associatePatAlgosToolsTask(process)
 
 process.NANOAODoutput.SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring(
-                                   'nanoAOD_KMuMu_step', 
-                                   'nanoAOD_Kee_step',
+                                   #'nanoAOD_KMuMu_step', 
+                                   #'nanoAOD_Kee_step',
                                    'nanoAOD_KstarMuMu_step',
-                                   'nanoAOD_KstarEE_step',
+                                   #'nanoAOD_KstarEE_step',
+                                   #'nanoAOD_PhiMuMu_step',
+                                   #'nanoAOD_PhiEE_step',
                                    )
 )
 

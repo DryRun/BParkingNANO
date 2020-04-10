@@ -1,4 +1,5 @@
 from CRABClient.UserUtilities import config, ClientException, getUsernameFromSiteDB
+from PhysicsTools.BParkingNano.skim_version import skim_version
 #from input_crab_data import dataset_files
 import yaml
 import datetime
@@ -16,13 +17,13 @@ config.General.workArea = 'BParkingNANO_%s' % production_tag
 config.section_('Data')
 config.Data.publication = False
 #config.Data.outLFNDirBase = '/store/group/cmst3/group/bpark/%s' % (config.General.workArea)
-config.Data.outLFNDirBase = '/store/user/{}/BParkingNANO/v0_0/'.format(getUsernameFromSiteDB())
+config.Data.outLFNDirBase = '/store/user/{}/BParkingNANO/{}/'.format(getUsernameFromSiteDB(), skim_version)
 
 config.Data.inputDBS = 'global'
 
 config.section_('JobType')
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = '../test/run_nano_muOnly_cfg.py'
+config.JobType.psetName = '../test/run_nano_BdKstarMuMu_cfg.py'
 config.JobType.maxJobRuntimeMin = 3000
 config.JobType.allowUndistributedCMSSW = True
 
@@ -47,7 +48,7 @@ if __name__ == '__main__':
 
 
   parser = ArgumentParser()
-  parser.add_argument('-y', '--yaml', default = 'samples.yml', help = 'File with dataset descriptions')
+  parser.add_argument('-y', '--yaml', default = 'samples_MCBdKstarMuMu.yaml', help = 'File with dataset descriptions')
   parser.add_argument('-f', '--filter', default='*', help = 'filter samples, POSIX regular expressions allowed')
   args = parser.parse_args()
 

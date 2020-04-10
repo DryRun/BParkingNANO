@@ -22,7 +22,7 @@ muonPairsForKstarMuMu = cms.EDProducer(
     'DiMuonBuilder',
     src = cms.InputTag('muonTrgSelector', 'SelectedMuons'),
     transientTracksSrc = cms.InputTag('muonTrgSelector', 'SelectedTransientMuons'),
-    lep1Selection = cms.string('pt > 1.5'),
+    lep1Selection = cms.string('pt > 1.0'),
     lep2Selection = cms.string(''),
     preVtxSelection = cms.string('abs(userCand("l1").vz - userCand("l2").vz) <= 1. && mass() < 5 '
                                  '&& mass() > 0 && charge() == 0 && userFloat("lep_deltaR") > 0.03'),
@@ -35,11 +35,11 @@ KstarToKPi = cms.EDProducer(
         transientTracks= cms.InputTag('tracksBPark', 'SelectedTransientTracks'),
         trk1Mass = cms.double(K_MASS),
         trk2Mass = cms.double(PI_MASS),
-        trk1Selection = cms.string('pt > 1.5 && abs(eta)<2.4'), #need optimization   
-        trk2Selection = cms.string('pt > 1.0 && abs(eta)<2.4'), #need optimization
+        trk1Selection = cms.string('pt > 0.5 && abs(eta)<2.5'), #need optimization   
+        trk2Selection = cms.string('pt > 0.5 && abs(eta)<2.5'), #need optimization
         preVtxSelection = cms.string('abs(userCand("trk1").vz - userCand("trk2").vz)<1.0' 
-        ' &&  pt()>2.0 && ( (mass() < 1.042 && mass() > 0.742)'
-        ' || (userFloat("barMass") < 1.042 && userFloat("barMass") > 0.742) ) '
+        ' &&  pt()>2.0 && ( (mass() < 1.092 && mass() > 0.692)'
+        ' || (userFloat("barMass") < 1.092 && userFloat("barMass") > 0.692) ) '
         ),
         postVtxSelection = cms.string('userFloat("sv_prob") > 1.e-5'
         ' && (  (userFloat("fitted_mass")<1.042 && userFloat("fitted_mass")>0.742)'

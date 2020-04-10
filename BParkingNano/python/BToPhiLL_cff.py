@@ -22,7 +22,7 @@ muonPairsForPhiMuMu = cms.EDProducer(
     'DiMuonBuilder',
     src = cms.InputTag('muonTrgSelector', 'SelectedMuons'),
     transientTracksSrc = cms.InputTag('muonTrgSelector', 'SelectedTransientMuons'),
-    lep1Selection = cms.string('pt > 1.5'),
+    lep1Selection = cms.string('pt > 1.0'),
     lep2Selection = cms.string(''),
     preVtxSelection = cms.string('abs(userCand("l1").vz - userCand("l2").vz) <= 1. && mass() < 5 '
                                  '&& mass() > 0 && charge() == 0 && userFloat("lep_deltaR") > 0.03'),
@@ -35,14 +35,14 @@ PhiToKK = cms.EDProducer(
         transientTracks= cms.InputTag('tracksBPark', 'SelectedTransientTracks'),
         trk1Mass = cms.double(K_MASS),
         trk2Mass = cms.double(K_MASS),
-        trk1Selection = cms.string('pt > 1.5 && abs(eta)<2.4'), #need optimization   
-        trk2Selection = cms.string('pt > 1.0 && abs(eta)<2.4'), #need optimization
+        trk1Selection = cms.string('pt > 0.4 && abs(eta)<2.5'), #need optimization   
+        trk2Selection = cms.string('pt > 0.4 && abs(eta)<2.5'), #need optimization
         preVtxSelection = cms.string('abs(userCand("trk1").vz - userCand("trk2").vz)<1.0' 
-        ' &&  pt()>2.0 && (mass() < 1.08 && mass() > 0.98)'
+        ' &&  pt()>2.0 && (mass() < 1.52 && mass() > 0.52)'
         ),
         postVtxSelection = cms.string('userFloat("sv_prob") > 1.e-5'
-        ' && (userFloat("fitted_mass")<1.08 && userFloat("fitted_mass")>0.98)'
-)
+        ' && (userFloat("fitted_mass")<1.12 && userFloat("fitted_mass")>0.92)'
+        )
 )
 
 
@@ -122,35 +122,35 @@ BToPhiEETable = cms.EDProducer(
     variables=cms.PSet(
         # pre-fit quantities
         CandVars,
-        l1_idx = uint('l1_idx'),
-        l2_idx = uint('l2_idx'),
+        l1_idx   = uint('l1_idx'),
+        l2_idx   = uint('l2_idx'),
         trk1_idx = uint('trk1_idx'),
         trk2_idx = uint('trk2_idx'),
-        phi_idx = uint('phi_idx'),
-        min_dr = ufloat('min_dr'),
-        max_dr = ufloat('max_dr'),
+        phi_idx  = uint('phi_idx'),
+        min_dr   = ufloat('min_dr'),
+        max_dr   = ufloat('max_dr'),
         # fit and vtx info
-        chi2 = ufloat('sv_chi2'),
-        svprob = ufloat('sv_prob'),
-        l_xy = ufloat('l_xy'),
+        chi2     = ufloat('sv_chi2'),
+        svprob   = ufloat('sv_prob'),
+        l_xy     = ufloat('l_xy'),
         l_xy_unc = ufloat('l_xy_unc'),
         # Mll
-        mll_raw = Var('userCand("dilepton").mass()', float),
-        mll_llfit = Var('userCand("dilepton").userFloat("fitted_mass")', float),
+        mll_raw     = Var('userCand("dilepton").mass()', float),
+        mll_llfit   = Var('userCand("dilepton").userFloat("fitted_mass")', float),
         mll_fullfit = ufloat('mll_fullfit'),     
         # phi fitted in b0 vertex
-        mphi_fullfit = ufloat('mphi_fullfit'),
-        ptphi_fullfit = ufloat('ptphi_fullfit'),
+        mphi_fullfit   = ufloat('mphi_fullfit'),
+        ptphi_fullfit  = ufloat('ptphi_fullfit'),
         etaphi_fullfit = ufloat('etaphi_fullfit'),
         phiphi_fullfit = ufloat('phiphi_fullfit'),
         # Cos(theta)
-        cos2D = ufloat('cos_theta_2D'),
+        cos2D     = ufloat('cos_theta_2D'),
         fit_cos2D = ufloat('fitted_cos_theta_2D'),
         # post-fit momentum
-        fit_mass = ufloat('fitted_mass'),
-        fit_pt = ufloat('fitted_pt'),
-        fit_eta = ufloat('fitted_eta'),
-        fit_phi = ufloat('fitted_phi'),
+        fit_mass    = ufloat('fitted_mass'),
+        fit_pt      = ufloat('fitted_pt'),
+        fit_eta     = ufloat('fitted_eta'),
+        fit_phi     = ufloat('fitted_phi'),
         fit_massErr = ufloat('fitted_massErr'),
 
         # post-fit tracks/leptons

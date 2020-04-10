@@ -182,9 +182,9 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
       std::vector<std::string> dnames{ "trk1", "trk2", "lep1", "lep2" };
       
       for (size_t idaughter=0; idaughter<dnames.size(); idaughter++){
-	cand.addUserFloat(dnames[idaughter]+"pt_fullfit",fitter.daughter_p4(idaughter).pt() );
+        cand.addUserFloat(dnames[idaughter]+"pt_fullfit",fitter.daughter_p4(idaughter).pt() );
         cand.addUserFloat(dnames[idaughter]+"eta_fullfit",fitter.daughter_p4(idaughter).eta() );
-       cand.addUserFloat(dnames[idaughter]+"phi_fullfit",fitter.daughter_p4(idaughter).phi() );
+        cand.addUserFloat(dnames[idaughter]+"phi_fullfit",fitter.daughter_p4(idaughter).phi() );
       }
       
       // other vars

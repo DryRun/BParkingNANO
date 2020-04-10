@@ -116,7 +116,7 @@ void MuonTriggerSelector::produce(edm::Event& iEvent, const edm::EventSetup& iSe
       for (unsigned h = 0; h < obj.filterIds().size(); ++h)
 	if(obj.filterIds()[h] == 83){ 
 	  isTriggerMuon = true; 
-	  if(debug) std::cout << "\t   Type IDs:   " << 83;  //83 = muon
+	  if(debug) std::cout << "\t   Type IDs:   " << 83 << std::endl;;  //83 = muon
 	  break;
 	} 
 
@@ -125,7 +125,15 @@ void MuonTriggerSelector::produce(edm::Event& iEvent, const edm::EventSetup& iSe
 	std::string filterName = obj.filterLabels()[h];
 	if(filterName.find("hltL3") != std::string::npos  && filterName.find("Park") != std::string::npos){
 	  isTriggerMuon = true;
-	  if(debug) std::cout << "\t   Filters:   " << filterName; 
+    if (debug) {
+      for (unsigned h2 = 0; h2 < obj.filterLabels().size(); ++h2){
+        std::cout << "\t " << obj.filterLabels()[h2] << std::endl;
+      }
+      for (unsigned h2 = 0; h2 < obj.pathNames().size(); ++h2) {
+        std::cout << "\t " << obj.pathNames()[h2] << " / isLF=" << obj.hasPathName(obj.pathNames()[h2], true, false) << " / isL3 " << obj.hasPathName(obj.pathNames()[h2], false, true) <<  std::endl;
+      }
+    }
+	  if(debug) std::cout << "\t   Filters:   " << filterName << std::endl;; 
 	  break;
 	}
 	else{ isTriggerMuon = false; }

@@ -1,4 +1,5 @@
-from CRABClient.UserUtilities import config, ClientException, getUsernameFromSiteDB
+from CRABClient.UserUtilities import config, ClientException, getUsernameFromCRIC
+from PhysicsTools.BParkingNano.skim_version import skim_version
 #from input_crab_data import dataset_files
 import yaml
 import datetime
@@ -6,29 +7,6 @@ from fnmatch import fnmatch
 from argparse import ArgumentParser
 
 production_tag = datetime.date.today().strftime('%Y%b%d')
-
-config = config()
-config.section_('General')
-config.General.transferOutputs = True
-config.General.transferLogs = True
-config.General.workArea = 'BParkingNANO_%s' % production_tag
-
-config.section_('Data')
-config.Data.publication = False
-#config.Data.outLFNDirBase = '/store/group/cmst3/group/bpark/%s' % (config.General.workArea)
-config.Data.outLFNDirBase = '/store/user/{}/BParkingNANO/v0_0/'.format(getUsernameFromSiteDB())
-
-config.Data.inputDBS = 'global'
-
-config.section_('JobType')
-config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = '../test/run_nano_muOnly_cfg.py'
-config.JobType.maxJobRuntimeMin = 3000
-config.JobType.allowUndistributedCMSSW = True
-
-config.section_('User')
-config.section_('Site')
-config.Site.storageSite = 'T3_US_Brown'
 
 if __name__ == '__main__':
 
@@ -47,7 +25,7 @@ if __name__ == '__main__':
 
 
   parser = ArgumentParser()
-  parser.add_argument('-y', '--yaml', default = 'samples.yml', help = 'File with dataset descriptions')
+  parser.add_argument('-y', '--yaml', default = 'samples_ffr_data.yaml', help = 'File with dataset descriptions')
   parser.add_argument('-f', '--filter', default='*', help = 'filter samples, POSIX regular expressions allowed')
   args = parser.parse_args()
 
@@ -69,22 +47,45 @@ if __name__ == '__main__':
 
         isMC = info['isMC']
 
-        config.Data.inputDataset = info['dataset'] % part \
+        this_config = config()
+        this_config.section_('General')
+        this_config.General.transferOutputs = True
+        this_config.General.transferLogs = True
+        this_config.General.workArea = 'BParkingNANO_%s' % production_tag
+
+        this_config.section_('Data')
+        this_config.Data.publication = False
+        #this_config.Data.outLFNDirBase = '/store/group/cmst3/group/bpark/%s' % (this_config.General.workArea)
+        this_config.Data.outLFNDirBase = '/store/user/{}/BParkingNANO/{}/'.format(getUsernameFromCRIC(), skim_version)
+
+        this_config.Data.inputDBS = 'global'
+
+        this_config.section_('JobType')
+        this_config.JobType.pluginName = 'Analysis'
+        this_config.JobType.psetName = '../test/run_nano_FFR_AllJpsiMuMu_cfg.py'
+        this_config.JobType.maxJobRuntimeMin = 3000
+        this_config.JobType.allowUndistributedCMSSW = True
+
+        this_config.section_('User')
+        this_config.section_('Site')
+        this_config.Site.storageSite = 'T3_US_Brown'
+
+        this_config.Data.inputDataset = info['dataset'] % part \
                                    if part is not None else \
                                       info['dataset']
 
-        config.General.requestName = name
+        this_config.General.requestName = name
         common_branch = 'mc' if isMC else 'data'
-        config.Data.splitting = 'FileBased' if isMC else 'LumiBased'
+        this_config.Data.splitting = 'FileBased' if isMC else 'LumiBased'
         if not isMC:
-            config.Data.lumiMask = info.get(
+            this_config.Data.lumiMask = info.get(
                 'lumimask', 
                 common[common_branch].get('lumimask', None)
             )
         else:
-            config.Data.lumiMask = ''
+            this_config.Data.lumiMask = ''
 
-        config.Data.unitsPerJob = info.get(
+        this_config.Data.unitsPerJob = info.get(
             'splitting',
             common[common_branch].get('splitting', None)
         )
@@ -93,15 +94,18 @@ if __name__ == '__main__':
             common[common_branch].get('globaltag', None)
         )
         
-        config.JobType.pyCfgParams = [
+        this_config.JobType.pyCfgParams = [
             'isMC=%s' % isMC, 'reportEvery=1000',
             'tag=%s' % production_tag,
             'globalTag=%s' % globaltag,
         ]
         
-        config.JobType.outputFiles = ['_'.join(['BParkNANO', 'mc' if isMC else 'data', production_tag])+'.root']
+        this_config.JobType.outputFiles = ['_'.join(['BParkNANO', 'mc' if isMC else 'data', production_tag])+'.root']
         
-        print config
-        submit(config)
+        print this_config
+        p = Process(target=submit, args=(this_config,))
+        p.start()
+        p.join()
+        #submit(this_config)
       print("*** Done with Sample {} ***\n\n".format(sample))
 
