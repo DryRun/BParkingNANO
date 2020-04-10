@@ -1,0 +1,70 @@
+common:
+  data:
+    lumimask : https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
+    splitting: 20
+    globaltag: 102X_dataRun2_v11
+  mc:
+    splitting: 1
+    globaltag: 102X_upgrade2018_realistic_v15
+
+samples:
+#  BsToPhiJpsi_ToKKMuMu:
+#    dataset: /BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+#    isMC: True
+
+#  BdToKstarJpsi_ToKPiMuMu:
+#    dataset: /BdToKstarJpsi_ToKPiMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+#    isMC: True
+
+#  BuToKJpsi_ToMuMu:
+#    dataset: /BuToKJpsi_ToMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+#    isMC: True
+
+  BsToJpsiPhi_BMuonFilter_SoftQCDnonDv1:
+    dataset: /BsToJpsiPhi_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM
+    isMC: True
+
+  BsToJpsiPhi_BMuonFilter_SoftQCDnonDv2:
+    dataset: /BsToJpsiPhi_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-N1_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
+  BuToJpsiK_BMuonFilter:
+    dataset: /BuToJpsiK_BMuonFilter_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM
+    isMC: True
+
+  BuToJpsiK_BMuonFilter_SoftQCDnonD:
+    dataset: /BuToJpsiK_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
+  BdToJpsiKstar_BMuonFilter_SoftQCDnonDv1:
+    dataset: /BdToJpsiKstar_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-N1_102X_upgrade2018_realistic_v15-v1/MINIAODSIM
+    isMC: True
+
+  BdToJpsiKstar_BMuonFilter_SoftQCDnonDv2:
+    dataset: /BdToJpsiKstar_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
+  BsToPhiJpsi_ToMuMu_MuFilter_SoftQCDnonD:
+    dataset: /BsToPhiJpsi_ToMuMu_MuFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
+  BdToKstarJpsi_ToMuMu_MuFilter_SoftQCDnonD:
+    dataset: /BdToKstarJpsi_ToMuMu_MuFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
+  BuToKJpsi_ToMuMu_MuFilter_SoftQCDnonD:
+    dataset: /BuToKJpsi_ToMuMu_MuFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
+  BuToJpsiK_SoftQCDnonD:
+    dataset: /BuToJpsiK_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
+  BdToJpsiKstar_SoftQCDnonD:
+    dataset: /BdToJpsiKstar_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
+  BsToJpsiPhi_SoftQCDnonD:
+    dataset: /BsToJpsiPhi_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
+
