@@ -1,4 +1,4 @@
-from CRABClient.UserUtilities import config, ClientException, getUsernameFromSiteDB
+from CRABClient.UserUtilities import config, ClientException, getUsernameFromCRIC
 from PhysicsTools.BParkingNano.skim_version import skim_version
 #from input_crab_data import dataset_files
 import yaml
@@ -17,7 +17,7 @@ config.General.workArea = 'BParkingNANO_%s' % production_tag
 config.section_('Data')
 config.Data.publication = False
 #config.Data.outLFNDirBase = '/store/group/cmst3/group/bpark/%s' % (config.General.workArea)
-config.Data.outLFNDirBase = '/store/user/{}/BParkingNANO/{}/'.format(getUsernameFromSiteDB(), skim_version)
+config.Data.outLFNDirBase = '/store/user/{}/BParkingNANO/{}/'.format(getUsernameFromCRIC(), skim_version)
 
 config.Data.inputDBS = 'global'
 
@@ -103,7 +103,12 @@ if __name__ == '__main__':
         config.JobType.outputFiles = ['_'.join(['BParkNANO', 'mc' if isMC else 'data', production_tag])+'.root']
 
         # Temporary: allow invalidated datasets (Bs probe filter MC is bugged)
-        config.Data.allowNonValidInputDataset = True
+        allowInvalid = info.get(
+          "allowInvalid",
+          False
+        )
+        if allowInvalid:
+          config.Data.allowNonValidInputDataset = True
 
         print config
         submit(config)

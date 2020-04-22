@@ -10,8 +10,13 @@ common:
 samples:
   BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD:
     #dataset: /BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
-    dataset: /BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15-v3/MINIAODSIM  
+    dataset: /BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15-v3/MINIAODSIM
     isMC: True
+
+  #BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_ext:
+  #  dataset: /BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/#RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15_ext1-v1/MINIAODSIM
+  #  isMC: True
+  #  allowInvalid: True
 
   #BsToJpsiPhi_SoftQCDnonD:
   #  dataset: /BsToJpsiPhi_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM

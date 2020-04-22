@@ -1,4 +1,4 @@
-from CRABClient.UserUtilities import config, ClientException, getUsernameFromSiteDB
+from CRABClient.UserUtilities import config, ClientException, getUsernameFromCRIC
 from PhysicsTools.BParkingNano.skim_version import skim_version
 #from input_crab_data import dataset_files
 import yaml
@@ -17,7 +17,7 @@ config.General.workArea = 'BParkingNANO_%s' % production_tag
 config.section_('Data')
 config.Data.publication = False
 #config.Data.outLFNDirBase = '/store/group/cmst3/group/bpark/%s' % (config.General.workArea)
-config.Data.outLFNDirBase = '/store/user/{}/BParkingNANO/{}/'.format(getUsernameFromSiteDB(), skim_version)
+config.Data.outLFNDirBase = '/store/user/{}/BParkingNANO/{}/'.format(getUsernameFromCRIC(), skim_version)
 
 config.Data.inputDBS = 'global'
 
