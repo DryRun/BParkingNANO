@@ -176,11 +176,11 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
       cand.addUserFloat("sv_prob", fitter->prob());
 
       // refitted kinematic vars
-      cand.addUserFloat("mkstar_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).mass() );
-      cand.addUserFloat("ptkstar_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).pt());
-      cand.addUserFloat("etakstar_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).eta());
-      cand.addUserFloat("phikstar_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).phi());
-      cand.addUserFloat("mll_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).mass());
+      cand.addUserFloat("mkstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).mass() );
+      cand.addUserFloat("ptkstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).pt());
+      cand.addUserFloat("etakstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).eta());
+      cand.addUserFloat("phikstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).phi());
+      cand.addUserFloat("mll_fullfit" , (fitter->daughter_p4(0) + fitter->daughter_p4(1)).mass());
 
       auto fit_p4 = fitter->fitted_p4();
       cand.addUserFloat("fitted_pt"  , fit_p4.pt()); 
@@ -190,7 +190,7 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
       cand.addUserFloat("fitted_massErr", sqrt(fitter->fitted_candidate().kinematicParametersError().matrix()(6,6))); 
 
       // refitted daughters (leptons/tracks)     
-      std::vector<std::string> dnames{ "trk1", "trk2", "lep1", "lep2" };
+      std::vector<std::string> dnames{"lep1", "lep2", "trk1", "trk2"};
       
       for (size_t idaughter=0; idaughter<dnames.size(); idaughter++){
         cand.addUserFloat(dnames[idaughter]+"pt_fullfit",fitter->daughter_p4(idaughter).pt() );
@@ -213,12 +213,12 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
       cand.addUserFloat("l_xy_unc", lxy.error());
 
       // second mass hypothesis
-      auto trk1p4 = fitter->daughter_p4(0);
-      auto trk2p4 = fitter->daughter_p4(1);
+      auto trk1p4 = fitter->daughter_p4(2);
+      auto trk2p4 = fitter->daughter_p4(3);
       trk1p4.SetM(PI_MASS);
       trk2p4.SetM(K_MASS);
       cand.addUserFloat("barMasskstar_fullfit",(trk1p4+trk2p4).M());
-      cand.addUserFloat("fitted_barMass",(trk1p4+trk2p4+fitter->daughter_p4(2) + fitter->daughter_p4(3)).M());     
+      cand.addUserFloat("fitted_barMass",(trk1p4+trk2p4+fitter->daughter_p4(0) + fitter->daughter_p4(1)).M());     
 
       // post fit selection
       if( !post_vtx_selection_(cand) ) continue;        

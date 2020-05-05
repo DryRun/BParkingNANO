@@ -12,5 +12,6 @@
 #skim_version = "v1_7_1" # Redo 1_7 failed jobs, which expired
 #skim_version = "v1_7_2" # Bug-fix and ext Bs_probefilter MC
 
-#skim_version="v2_0" # Add Jpsi mass constraint
-skim_version="v2_1" # Fix ordering of tracks passed to KinVtxFitter
+#skim_version="v2_0" # Add Jpsi mass constraint.
+#skim_version="v2_1" # Fix ordering of tracks passed to KinVtxFitter.
+skim_version="v2_2" # Fix output data - leptons and tracks were mixed up.

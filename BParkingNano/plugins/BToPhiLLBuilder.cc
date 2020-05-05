@@ -173,11 +173,11 @@ void BToPhiLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup co
       cand.addUserFloat("sv_prob", fitter->prob());
 
       // refitted kinematic vars
-      cand.addUserFloat("mphi_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).mass() );
-      cand.addUserFloat("ptphi_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).pt());
-      cand.addUserFloat("etaphi_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).eta());
-      cand.addUserFloat("phiphi_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).phi());
-      cand.addUserFloat("mll_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).mass());
+      cand.addUserFloat("mphi_fullfit" ,(fitter->daughter_p4(2) + fitter->daughter_p4(3)).mass() );
+      cand.addUserFloat("ptphi_fullfit" ,(fitter->daughter_p4(2) + fitter->daughter_p4(3)).pt());
+      cand.addUserFloat("etaphi_fullfit" ,(fitter->daughter_p4(2) + fitter->daughter_p4(3)).eta());
+      cand.addUserFloat("phiphi_fullfit" ,(fitter->daughter_p4(2) + fitter->daughter_p4(3)).phi());
+      cand.addUserFloat("mll_fullfit" , (fitter->daughter_p4(0) + fitter->daughter_p4(1)).mass());
 
       auto fit_p4 = fitter->fitted_p4();
       cand.addUserFloat("fitted_pt"  , fit_p4.pt()); 
@@ -188,7 +188,7 @@ void BToPhiLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup co
       cand.addUserFloat("fitted_massErr", sqrt(fitter->fitted_candidate().kinematicParametersError().matrix()(6,6))); 
 
       // refitted daughters (leptons/tracks)     
-      std::vector<std::string> dnames{ "trk1", "trk2", "lep1", "lep2" };
+      std::vector<std::string> dnames{"lep1", "lep2", "trk1", "trk2"};
 
       for (size_t idaughter=0; idaughter<dnames.size(); idaughter++){
         cand.addUserFloat(dnames[idaughter]+"pt_fullfit",fitter->daughter_p4(idaughter).pt() );
