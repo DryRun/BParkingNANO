@@ -42,8 +42,9 @@ public:
     kstars_{consumes<pat::CompositeCandidateCollection>( cfg.getParameter<edm::InputTag>("kstars") )},
     leptons_ttracks_{consumes<TransientTrackCollection>( cfg.getParameter<edm::InputTag>("leptonTransientTracks") )},
     kstars_ttracks_{consumes<TransientTrackCollection>( cfg.getParameter<edm::InputTag>("kstarsTransientTracks") )},
-    beamspot_{consumes<reco::BeamSpot>( cfg.getParameter<edm::InputTag>("beamSpot") )} 
-     {
+    beamspot_{consumes<reco::BeamSpot>( cfg.getParameter<edm::InputTag>("beamSpot") )},
+    do_jpsi_constr_{cfg.getParameter<bool>("doJpsiConstr")}     
+    {
        //output
       produces<pat::CompositeCandidateCollection>();
     }
@@ -65,6 +66,8 @@ private:
   const edm::EDGetTokenT<TransientTrackCollection> leptons_ttracks_;
   const edm::EDGetTokenT<TransientTrackCollection> kstars_ttracks_;
   const edm::EDGetTokenT<reco::BeamSpot> beamspot_;  
+
+  const bool do_jpsi_constr_;
 };
 
 void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup const &) const {
@@ -83,8 +86,6 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
 
   edm::Handle<reco::BeamSpot> beamspot;
   evt.getByToken(beamspot_, beamspot);  
-
-
 
   // output
   std::unique_ptr<pat::CompositeCandidateCollection> ret_val(new pat::CompositeCandidateCollection());
@@ -140,79 +141,91 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
 
       // check if pass pre vertex cut
       if( !pre_vtx_selection_(cand) ) continue;
-        
-      KinVtxFitter fitter(
-        {kstars_ttracks->at(trk1_idx), kstars_ttracks->at(trk2_idx), 
-         leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx)},
-        {K_MASS, PI_MASS, l1_ptr->mass(), l2_ptr->mass()},
-        { K_SIGMA, K_SIGMA, LEP_SIGMA, LEP_SIGMA}  //K_SIGMA==PI_SIGMA
-        );
 
-      if(!fitter.success()) continue; 
+      KinVtxFitter *fitter = 0;
+      if (do_jpsi_constr_) {
+        fitter = new KinVtxFitter(
+          {kstars_ttracks->at(trk1_idx), kstars_ttracks->at(trk2_idx), 
+           leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx)},
+          {K_MASS, PI_MASS, l1_ptr->mass(), l2_ptr->mass()},
+          { K_SIGMA, K_SIGMA, LEP_SIGMA, LEP_SIGMA},  //K_SIGMA==PI_SIGMA
+          JPSI_MASS
+          );
+      } else {      
+        fitter = new KinVtxFitter(
+          {kstars_ttracks->at(trk1_idx), kstars_ttracks->at(trk2_idx), 
+           leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx)},
+          {K_MASS, PI_MASS, l1_ptr->mass(), l2_ptr->mass()},
+          { K_SIGMA, K_SIGMA, LEP_SIGMA, LEP_SIGMA}  //K_SIGMA==PI_SIGMA
+          );
+      }
+      if(!fitter->success()) continue; 
 
       // B0 position
       cand.setVertex( 
         reco::Candidate::Point( 
-          fitter.fitted_vtx().x(),
-          fitter.fitted_vtx().y(),
-          fitter.fitted_vtx().z()
+          fitter->fitted_vtx().x(),
+          fitter->fitted_vtx().y(),
+          fitter->fitted_vtx().z()
           )  
         );
 
       // vertex vars
-      cand.addUserFloat("sv_chi2", fitter.chi2());
-      cand.addUserFloat("sv_ndof", fitter.dof());
-      cand.addUserFloat("sv_prob", fitter.prob());
+      cand.addUserFloat("sv_chi2", fitter->chi2());
+      cand.addUserFloat("sv_ndof", fitter->dof());
+      cand.addUserFloat("sv_prob", fitter->prob());
 
       // refitted kinematic vars
-      cand.addUserFloat("mkstar_fullfit" ,(fitter.daughter_p4(0) + fitter.daughter_p4(1)).mass() );
-      cand.addUserFloat("ptkstar_fullfit" ,(fitter.daughter_p4(0) + fitter.daughter_p4(1)).pt());
-      cand.addUserFloat("etakstar_fullfit" ,(fitter.daughter_p4(0) + fitter.daughter_p4(1)).eta());
-      cand.addUserFloat("phikstar_fullfit" ,(fitter.daughter_p4(0) + fitter.daughter_p4(1)).phi());
-      cand.addUserFloat("mll_fullfit" , (fitter.daughter_p4(2) + fitter.daughter_p4(3)).mass());
+      cand.addUserFloat("mkstar_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).mass() );
+      cand.addUserFloat("ptkstar_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).pt());
+      cand.addUserFloat("etakstar_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).eta());
+      cand.addUserFloat("phikstar_fullfit" ,(fitter->daughter_p4(0) + fitter->daughter_p4(1)).phi());
+      cand.addUserFloat("mll_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).mass());
 
-      auto fit_p4 = fitter.fitted_p4();
+      auto fit_p4 = fitter->fitted_p4();
       cand.addUserFloat("fitted_pt"  , fit_p4.pt()); 
       cand.addUserFloat("fitted_eta" , fit_p4.eta());
       cand.addUserFloat("fitted_phi" , fit_p4.phi());
       cand.addUserFloat("fitted_mass", fit_p4.mass());      
-      cand.addUserFloat("fitted_massErr", sqrt(fitter.fitted_candidate().kinematicParametersError().matrix()(6,6))); 
+      cand.addUserFloat("fitted_massErr", sqrt(fitter->fitted_candidate().kinematicParametersError().matrix()(6,6))); 
 
       // refitted daughters (leptons/tracks)     
       std::vector<std::string> dnames{ "trk1", "trk2", "lep1", "lep2" };
       
       for (size_t idaughter=0; idaughter<dnames.size(); idaughter++){
-        cand.addUserFloat(dnames[idaughter]+"pt_fullfit",fitter.daughter_p4(idaughter).pt() );
-        cand.addUserFloat(dnames[idaughter]+"eta_fullfit",fitter.daughter_p4(idaughter).eta() );
-        cand.addUserFloat(dnames[idaughter]+"phi_fullfit",fitter.daughter_p4(idaughter).phi() );
+        cand.addUserFloat(dnames[idaughter]+"pt_fullfit",fitter->daughter_p4(idaughter).pt() );
+        cand.addUserFloat(dnames[idaughter]+"eta_fullfit",fitter->daughter_p4(idaughter).eta() );
+        cand.addUserFloat(dnames[idaughter]+"phi_fullfit",fitter->daughter_p4(idaughter).phi() );
       }
       
       // other vars
       cand.addUserFloat(
         "cos_theta_2D", 
-        cos_theta_2D(fitter, *beamspot, cand.p4())
+        cos_theta_2D(*fitter, *beamspot, cand.p4())
         );
       cand.addUserFloat(
         "fitted_cos_theta_2D", 
-        cos_theta_2D(fitter, *beamspot, fit_p4)
+        cos_theta_2D(*fitter, *beamspot, fit_p4)
         );
 
-      auto lxy = l_xy(fitter, *beamspot);
+      auto lxy = l_xy(*fitter, *beamspot);
       cand.addUserFloat("l_xy", lxy.value());
       cand.addUserFloat("l_xy_unc", lxy.error());
 
       // second mass hypothesis
-      auto trk1p4 = fitter.daughter_p4(0);
-      auto trk2p4 = fitter.daughter_p4(1);
+      auto trk1p4 = fitter->daughter_p4(0);
+      auto trk2p4 = fitter->daughter_p4(1);
       trk1p4.SetM(PI_MASS);
       trk2p4.SetM(K_MASS);
       cand.addUserFloat("barMasskstar_fullfit",(trk1p4+trk2p4).M());
-      cand.addUserFloat("fitted_barMass",(trk1p4+trk2p4+fitter.daughter_p4(2) + fitter.daughter_p4(3)).M());     
+      cand.addUserFloat("fitted_barMass",(trk1p4+trk2p4+fitter->daughter_p4(2) + fitter->daughter_p4(3)).M());     
 
       // post fit selection
       if( !post_vtx_selection_(cand) ) continue;        
       
       ret_val->push_back(cand);
+
+      delete fitter;
 
     } // for(size_t ll_idx = 0; ll_idx < dileptons->size(); ++ll_idx) {
    

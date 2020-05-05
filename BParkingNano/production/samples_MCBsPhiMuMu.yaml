@@ -13,14 +13,14 @@ samples:
     dataset: /BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15-v3/MINIAODSIM
     isMC: True
 
-  #BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_ext:
-  #  dataset: /BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/#RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15_ext1-v1/MINIAODSIM
-  #  isMC: True
-  #  allowInvalid: True
+  BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_ext:
+    dataset: /BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_BParking_102X_upgrade2018_realistic_v15_ext1-v1/MINIAODSIM
+    isMC: True
+    allowInvalid: True
 
-  #BsToJpsiPhi_SoftQCDnonD:
-  #  dataset: /BsToJpsiPhi_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
-  #  isMC: True
+  BsToJpsiPhi_SoftQCDnonD:
+    dataset: /BsToJpsiPhi_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
 
 #  BsToJpsiPhi_BMuonFilter_SoftQCDnonDv1:
 #    dataset: /BsToJpsiPhi_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM

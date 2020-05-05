@@ -68,7 +68,8 @@ BToKstarMuMu = cms.EDProducer(
         '&& userFloat("fitted_cos_theta_2D") >= 0'
         '&& ( (userFloat("fitted_mass") > 4.5 && userFloat("fitted_mass") < 6.)'
         '|| (userFloat("fitted_barMass") > 4.5 && userFloat("fitted_barMass") < 6.)  )'
-    )
+    ),
+    doJpsiConstr = cms.bool(True),    
 )
 
 BToKstarEE = cms.EDProducer(
@@ -89,7 +90,8 @@ BToKstarEE = cms.EDProducer(
         '&& userFloat("fitted_cos_theta_2D") >= 0'
         '&& ( (userFloat("fitted_mass") > 4.5 && userFloat("fitted_mass") < 6.)'
         '|| (userFloat("fitted_barMass") > 4.5 && userFloat("fitted_barMass") < 6.)  )'
-    )
+    ),
+    doJpsiConstr = cms.bool(True),    
 )
 
 

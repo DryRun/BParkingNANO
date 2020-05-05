@@ -46,7 +46,8 @@ extension = {False : 'data', True : 'mc'}
 outputFileNANO = cms.untracked.string('_'.join(['BParkNANO', extension[options.isMC], options.tag])+'.root')
 outputFileFEVT = cms.untracked.string('_'.join(['BParkFullEvt', extension[options.isMC], options.tag])+'.root')
 if not options.inputFiles:
-    options.inputFiles = ['file:/afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/test/BdToKstarJpsi_ToKPiMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen_BF7A19E8-ED80-B841-A6EB-B583F36C1125.root']
+    options.inputFiles = ['file:/afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/test/BuToKJpsi_ToMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen_FDD42175-87DC-D648-860B-F240C5E2CB91.root']
+    #options.inputFiles = ['file:/afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/test/BdToKstarJpsi_ToKPiMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen_BF7A19E8-ED80-B841-A6EB-B583F36C1125.root']
     # options.inputFiles = ['file:/afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/test/BsToPhiJpsi_ToKKMuMu_probefilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen_E313F59A-3E16-2342-B628-305F2AEEDCC5.root']
     #options.inputFiles = ['/store/data/Run2018B/ParkingBPH4/MINIAOD/05May2019-v2/230000/6B5A24B1-0E6E-504B-8331-BD899EB60110.root'] if not options.isMC else \
     #                     ['/store/cmst3/group/bpark/BToKmumu_1000Events_MINIAOD.root']

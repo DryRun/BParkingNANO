@@ -10,4 +10,6 @@
 #skim_version = "v1_6_zlib6" # Test ZLIB compression level 6
 #skim_version = "v1_7" # v1_6 data had 200 LS/job, which caused timeouts. Try 50 instead (might have to hadd)
 #skim_version = "v1_7_1" # Redo 1_7 failed jobs, which expired
-skim_version = "v1_7_2" # Bug-fix and ext Bs_probefilter MC
+#skim_version = "v1_7_2" # Bug-fix and ext Bs_probefilter MC
+
+skim_version="v2_0" # Add Jpsi mass constraint

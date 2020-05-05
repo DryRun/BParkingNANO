@@ -64,7 +64,8 @@ BToPhiMuMu = cms.EDProducer(
         'userFloat("sv_prob") > 0.001 '
         '&& userFloat("fitted_cos_theta_2D") >= 0'
         '&& (userFloat("fitted_mass") > 4.5 && userFloat("fitted_mass") < 6.)'
-    )
+    ), 
+    doJpsiConstr = cms.bool(True),
 )
 
 BToPhiEE = cms.EDProducer(
@@ -83,7 +84,8 @@ BToPhiEE = cms.EDProducer(
         'userFloat("sv_prob") > 0.001 '
         '&& userFloat("fitted_cos_theta_2D") >= 0'
         '&& (userFloat("fitted_mass") > 4.5 && userFloat("fitted_mass") < 6.)'
-    )
+    ),
+    doJpsiConstr = cms.bool(True),
 )
 
 
@@ -190,7 +192,7 @@ CountBToPhiMuMu = CountBToPhiEE.clone(
 )
 
 
-########################### Sequencies  ############################
+########################### Sequences  ############################
 
 PhiToKKSequence = cms.Sequence(  PhiToKK  )
 
