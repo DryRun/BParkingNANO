@@ -145,18 +145,18 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
       KinVtxFitter *fitter = 0;
       if (do_jpsi_constr_) {
         fitter = new KinVtxFitter(
-          {kstars_ttracks->at(trk1_idx), kstars_ttracks->at(trk2_idx), 
-           leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx)},
-          {K_MASS, PI_MASS, l1_ptr->mass(), l2_ptr->mass()},
-          { K_SIGMA, K_SIGMA, LEP_SIGMA, LEP_SIGMA},  //K_SIGMA==PI_SIGMA
+          {leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx), 
+            kstars_ttracks->at(trk1_idx), kstars_ttracks->at(trk2_idx)},
+          {l1_ptr->mass(), l2_ptr->mass(), K_MASS, PI_MASS},
+          {LEP_SIGMA, LEP_SIGMA, K_SIGMA, K_SIGMA},  //K_SIGMA==PI_SIGMA
           JPSI_MASS
           );
       } else {      
         fitter = new KinVtxFitter(
-          {kstars_ttracks->at(trk1_idx), kstars_ttracks->at(trk2_idx), 
-           leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx)},
-          {K_MASS, PI_MASS, l1_ptr->mass(), l2_ptr->mass()},
-          { K_SIGMA, K_SIGMA, LEP_SIGMA, LEP_SIGMA}  //K_SIGMA==PI_SIGMA
+          {leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx), 
+           kstars_ttracks->at(trk1_idx), kstars_ttracks->at(trk2_idx)},
+          {l1_ptr->mass(), l2_ptr->mass(), K_MASS, PI_MASS},
+          {LEP_SIGMA, LEP_SIGMA, K_SIGMA, K_SIGMA}  //K_SIGMA==PI_SIGMA
           );
       }
       if(!fitter->success()) continue; 

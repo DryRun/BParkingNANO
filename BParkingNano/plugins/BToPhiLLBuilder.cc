@@ -140,18 +140,19 @@ void BToPhiLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup co
       KinVtxFitter *fitter = 0;
       if (do_jpsi_constr_) {
         fitter = new KinVtxFitter(
-          {phis_ttracks->at(trk1_idx), phis_ttracks->at(trk2_idx), 
-           leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx)},
-          {K_MASS, K_MASS, l1_ptr->mass(), l2_ptr->mass()},
-          { K_SIGMA, K_SIGMA, LEP_SIGMA, LEP_SIGMA} , 
+          {leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx), 
+            phis_ttracks->at(trk1_idx), phis_ttracks->at(trk2_idx)
+           },
+          {l1_ptr->mass(), l2_ptr->mass(), K_MASS, K_MASS},
+          {LEP_SIGMA, LEP_SIGMA, K_SIGMA, K_SIGMA}, 
           JPSI_MASS
           );
       } else {
         fitter = new KinVtxFitter(
-          {phis_ttracks->at(trk1_idx), phis_ttracks->at(trk2_idx), 
-           leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx)},
-          {K_MASS, K_MASS, l1_ptr->mass(), l2_ptr->mass()},
-          { K_SIGMA, K_SIGMA, LEP_SIGMA, LEP_SIGMA} 
+          {leptons_ttracks->at(l1_idx), leptons_ttracks->at(l2_idx), 
+            phis_ttracks->at(trk1_idx), phis_ttracks->at(trk2_idx)},
+          {l1_ptr->mass(), l2_ptr->mass(), K_MASS, K_MASS},
+          {LEP_SIGMA, LEP_SIGMA, K_SIGMA, K_SIGMA} 
           );
       }
 
