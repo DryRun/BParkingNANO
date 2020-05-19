@@ -136,7 +136,10 @@ void BToKLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup cons
           {LEP_SIGMA, LEP_SIGMA, K_SIGMA} //some small sigma for the lepton mass
           );
       }
-      if(!fitter->success()) continue; // hardcoded, but do we need otherwise?
+      if(!fitter->success()) {
+        delete fitter;
+        continue; // hardcoded, but do we need otherwise?
+      }
       cand.setVertex( 
         reco::Candidate::Point( 
           fitter->fitted_vtx().x(),
@@ -183,7 +186,10 @@ void BToKLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup cons
       cand.addUserFloat("fitted_k_eta" , fitter->daughter_p4(2).eta());
       cand.addUserFloat("fitted_k_phi" , fitter->daughter_p4(2).phi());
     
-      if( !post_vtx_selection_(cand) ) continue;        
+      if( !post_vtx_selection_(cand) ) {
+        delete fitter;
+        continue;     
+      }   
       ret_val->push_back(cand);
       delete fitter;
     } // for(size_t ll_idx = 0; ll_idx < dileptons->size(); ++ll_idx) {

@@ -156,7 +156,10 @@ void BToPhiLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup co
           );
       }
 
-      if (!fitter->success()) continue;
+      if (!fitter->success()) {
+        delete fitter;
+        continue;
+      }
 
       // Bs position
       cand.setVertex( 
@@ -211,7 +214,10 @@ void BToPhiLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup co
       cand.addUserFloat("l_xy_unc", lxy.error());
 
       // post fit selection
-      if( !post_vtx_selection_(cand) ) continue;        
+      if( !post_vtx_selection_(cand) ) {
+        delete fitter;
+        continue;
+      }
       
       ret_val->push_back(cand);
       delete fitter;

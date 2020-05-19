@@ -159,8 +159,10 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
           {LEP_SIGMA, LEP_SIGMA, K_SIGMA, K_SIGMA}  //K_SIGMA==PI_SIGMA
           );
       }
-      if(!fitter->success()) continue; 
-
+      if(!fitter->success()) {
+        delete fitter;
+        continue; 
+      }
       // B0 position
       cand.setVertex( 
         reco::Candidate::Point( 
@@ -176,7 +178,7 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
       cand.addUserFloat("sv_prob", fitter->prob());
 
       // refitted kinematic vars
-      cand.addUserFloat("mkstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).mass() );
+      cand.addUserFloat("mkstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).mass());
       cand.addUserFloat("ptkstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).pt());
       cand.addUserFloat("etakstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).eta());
       cand.addUserFloat("phikstar_fullfit" , (fitter->daughter_p4(2) + fitter->daughter_p4(3)).phi());
@@ -221,8 +223,10 @@ void BToKstarLLBuilder::produce(edm::StreamID, edm::Event &evt, edm::EventSetup 
       cand.addUserFloat("fitted_barMass",(trk1p4+trk2p4+fitter->daughter_p4(0) + fitter->daughter_p4(1)).M());     
 
       // post fit selection
-      if( !post_vtx_selection_(cand) ) continue;        
-      
+      if( !post_vtx_selection_(cand) ) {
+        delete fitter;
+        continue;
+      } 
       ret_val->push_back(cand);
 
       delete fitter;

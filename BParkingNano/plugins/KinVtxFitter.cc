@@ -69,6 +69,7 @@ KinVtxFitter::KinVtxFitter(const std::vector<reco::TransientTrack> tracks,
 
   if (vtx_tree->isEmpty() || !vtx_tree->isValid() || !vtx_tree->isConsistent()) {
     success_ = false; 
+    delete jpsi_constr;
     return;
   }
 
@@ -77,15 +78,19 @@ KinVtxFitter::KinVtxFitter(const std::vector<reco::TransientTrack> tracks,
   fitted_vtx_ = vtx_tree->currentDecayVertex();
   if (!fitted_particle_->currentState().isValid() || !fitted_vtx_->vertexIsValid()){ 
     success_ = false; 
+    delete jpsi_constr;
     return;
   }
   fitted_state_ = fitted_particle_->currentState();
   fitted_children_ = vtx_tree->finalStateParticles();
   if(fitted_children_.size() != n_particles_) { 
-    success_=false; 
+    success_= false; 
+    delete jpsi_constr;
     return;
   }
 
   fitted_track_ = fitted_particle_->refittedTransientTrack();
   success_ = true;
+  delete jpsi_constr;
+  return;
 }
