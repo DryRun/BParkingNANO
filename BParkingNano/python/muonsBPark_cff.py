@@ -70,7 +70,11 @@ muonBParkTable = cms.EDProducer("SimpleCandidateFlatTableProducer",
         multiIsoId = Var("?passed('MultiIsoMedium')?2:passed('MultiIsoLoose')","uint8",doc="MultiIsoId from miniAOD selector (1=MultiIsoLoose, 2=MultiIsoMedium)"),
         triggerIdLoose = Var("passed('TriggerIdLoose')",bool,doc="TriggerIdLoose ID"),
         inTimeMuon = Var("passed('InTimeMuon')",bool,doc="inTimeMuon ID"),
-        isTriggering = Var("userInt('isTriggering')", int,doc="flag the reco muon is also triggering")
+        isTriggering = Var("userInt('isTriggering')", int,doc="flag the reco muon is also triggering"),
+        isTriggering_HLT_Mu7_IP4 = Var("userInt('isTriggering_HLT_Mu7_IP4')", int, doc="Reco muon matched to HLT_Mu7_IP4 trigger muon"),
+        isTriggering_HLT_Mu9_IP5 = Var("userInt('isTriggering_HLT_Mu9_IP5')", int, doc="Reco muon matched to HLT_Mu7_IP4 trigger muon"),
+        isTriggering_HLT_Mu9_IP6 = Var("userInt('isTriggering_HLT_Mu9_IP6')", int, doc="Reco muon matched to HLT_Mu7_IP4 trigger muon"),
+        isTriggering_HLT_Mu12_IP6 = Var("userInt('isTriggering_HLT_Mu12_IP6')", int, doc="Reco muon matched to HLT_Mu7_IP4 trigger muon"),
     ),
 )
 
