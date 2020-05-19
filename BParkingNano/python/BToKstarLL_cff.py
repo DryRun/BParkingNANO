@@ -38,7 +38,7 @@ KstarToKPi = cms.EDProducer(
         trk1Selection = cms.string('pt > 0.5 && abs(eta)<2.5'), #need optimization   
         trk2Selection = cms.string('pt > 0.5 && abs(eta)<2.5'), #need optimization
         preVtxSelection = cms.string('abs(userCand("trk1").vz - userCand("trk2").vz)<1.0' 
-        ' &&  pt()>2.0 && ( (mass() < 1.092 && mass() > 0.692)'
+        ' &&  pt()>0.75 && ( (mass() < 1.092 && mass() > 0.692)'
         ' || (userFloat("barMass") < 1.092 && userFloat("barMass") > 0.692) ) '
         ),
         postVtxSelection = cms.string('userFloat("sv_prob") > 1.e-5'

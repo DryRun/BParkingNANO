@@ -38,7 +38,7 @@ PhiToKK = cms.EDProducer(
         trk1Selection = cms.string('pt > 0.4 && abs(eta)<2.5'), #need optimization   
         trk2Selection = cms.string('pt > 0.4 && abs(eta)<2.5'), #need optimization
         preVtxSelection = cms.string('abs(userCand("trk1").vz - userCand("trk2").vz)<1.0' 
-        ' &&  pt()>2.0 && (mass() < 1.52 && mass() > 0.52)'
+        ' &&  pt()>0.75 && (mass() < 1.52 && mass() > 0.52)'
         ),
         postVtxSelection = cms.string('userFloat("sv_prob") > 1.e-5'
         ' && (userFloat("fitted_mass")<1.12 && userFloat("fitted_mass")>0.92)'
