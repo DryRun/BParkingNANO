@@ -20,6 +20,7 @@ if __name__ == '__main__':
           crabCommand('submit', config=config)
       except HTTPException as hte:
           print "Failed submitting task: %s" % (hte.headers)
+          print hte
       except ClientException as cle:
           print "Failed submitting task: %s" % (cle)
 
