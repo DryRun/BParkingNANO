@@ -12,6 +12,14 @@
 #skim_version = "v1_7_1" # Redo 1_7 failed jobs, which expired
 #skim_version = "v1_7_2" # Bug-fix and ext Bs_probefilter MC
 
-#skim_version="v2_0" # Add Jpsi mass constraint.
-#skim_version="v2_1" # Fix ordering of tracks passed to KinVtxFitter.
-skim_version="v2_2" # Fix output data - leptons and tracks were mixed up.
+#skim_version = "v2_0" # Add Jpsi mass constraint.
+#skim_version = "v2_1" # Fix ordering of tracks passed to KinVtxFitter.
+#skim_version = "v2_2" # Fix output data - leptons and tracks were mixed up.
+#skim_version = "v2_2_1" # CRAB wasn't working. Try again.
+#skim_version = "v2_3" # Fix memory leak (hopefully)
+#skim_version = "v2_3_1" # Resubmit 2018D2_part3 and 2018D2_part5
+#skim_version = "vTEST" # Helping out Stefano
+#skim_version = "v2_4" # Lower track pT cut from 700 to 500 MeV.
+#skim_version = "v2_5" # Lower phi and Kstar pT cut from 2 GeV to 750 MeV, and add specific trigger matching info
+#skim_version = "v2_5_1" # Bug fix: no muons were passing...
+skim_version = "v2_5_2" # Bug fix: didn't upload pT cut changes :(
