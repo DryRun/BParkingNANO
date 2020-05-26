@@ -22,4 +22,9 @@
 #skim_version = "v2_4" # Lower track pT cut from 700 to 500 MeV.
 #skim_version = "v2_5" # Lower phi and Kstar pT cut from 2 GeV to 750 MeV, and add specific trigger matching info
 #skim_version = "v2_5_1" # Bug fix: no muons were passing...
-skim_version = "v2_5_2" # Bug fix: didn't upload pT cut changes :(
+#skim_version = "v2_5_2" # Bug fix: didn't upload pT cut changes :(
+#skim_version = "v2_5_3" # Try even lower track pT, 300 MeV
+#skim_version = "v2_5_4" # Back to trk pT 500 MeV, phi pT 750 MeV, remove dimuon dR>0.03
+#skim_version = "vTEST" # Testing data production
+#skim_version = "v2_6" # Bump version for data production
+skim_version = "v2_6_1" # Retry 2018D with auto splitting

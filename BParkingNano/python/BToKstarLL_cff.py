@@ -13,9 +13,9 @@ electronPairsForKstarEE = cms.EDProducer(
     lep2Selection = cms.string(''),
     preVtxSelection = cms.string(
         'abs(userCand("l1").vz - userCand("l2").vz) <= 1. && mass() < 5 '
-        '&& mass() > 0 && charge() == 0 && userFloat("lep_deltaR") > 0.03'
+        '&& mass() > 0 && charge() == 0 && userFloat("lep_deltaR") > 0.0'
     ),
-    postVtxSelection = cms.string('userFloat("sv_chi2") < 998 && userFloat("sv_prob") > 1.e-5'),
+    postVtxSelection = cms.string('userFloat("sv_chi2") < 998 && userFloat("sv_prob") > 1.e-4'),
 )
 
 muonPairsForKstarMuMu = cms.EDProducer(
@@ -24,8 +24,8 @@ muonPairsForKstarMuMu = cms.EDProducer(
     transientTracksSrc = cms.InputTag('muonTrgSelector', 'SelectedTransientMuons'),
     lep1Selection = cms.string('pt > 1.0'),
     lep2Selection = cms.string(''),
-    preVtxSelection = cms.string('abs(userCand("l1").vz - userCand("l2").vz) <= 1. && mass() < 5 '
-                                 '&& mass() > 0 && charge() == 0 && userFloat("lep_deltaR") > 0.03'),
+    preVtxSelection = cms.string('abs(userCand("l1").vz - userCand("l2").vz) <= 1. && mass() < 4.5 '
+                                 '&& mass() > 1.5 && charge() == 0 && userFloat("lep_deltaR") > 0.0'),
     postVtxSelection = electronPairsForKstarEE.postVtxSelection,
 )
 
@@ -41,7 +41,7 @@ KstarToKPi = cms.EDProducer(
         ' &&  pt()>0.75 && ( (mass() < 1.092 && mass() > 0.692)'
         ' || (userFloat("barMass") < 1.092 && userFloat("barMass") > 0.692) ) '
         ),
-        postVtxSelection = cms.string('userFloat("sv_prob") > 1.e-5'
+        postVtxSelection = cms.string('userFloat("sv_prob") > 1.e-4'
         ' && (  (userFloat("fitted_mass")<1.042 && userFloat("fitted_mass")>0.742)'
         ' || (userFloat("fitted_barMass")<1.042 && userFloat("fitted_barMass")>0.742)  )'
 )
@@ -59,12 +59,12 @@ BToKstarMuMu = cms.EDProducer(
     
     beamSpot = cms.InputTag("offlineBeamSpot"),
     preVtxSelection = cms.string(
-        'pt > 3. && userFloat("min_dr") > 0.03'
+        'pt > 3. && userFloat("min_dr") > 0.0'
         '&& ( (mass < 7. && mass > 4.) '
         '|| (userFloat("barMass")<7. && userFloat("barMass")>4.) )'
         ),
     postVtxSelection = cms.string(
-        'userFloat("sv_prob") > 0.001 '
+        'userFloat("sv_prob") > 0.005 '
         '&& userFloat("fitted_cos_theta_2D") >= 0'
         '&& ( (userFloat("fitted_mass") > 4.5 && userFloat("fitted_mass") < 6.)'
         '|| (userFloat("fitted_barMass") > 4.5 && userFloat("fitted_barMass") < 6.)  )'
@@ -81,12 +81,12 @@ BToKstarEE = cms.EDProducer(
     
     beamSpot = cms.InputTag("offlineBeamSpot"),
     preVtxSelection = cms.string(
-        'pt > 3. && userFloat("min_dr") > 0.03'
+        'pt > 3. && userFloat("min_dr") > 0.0'
         '&& ( (mass < 7. && mass > 4.) '
         '|| (userFloat("barMass")<7. && userFloat("barMass")>4.) )'
         ),
     postVtxSelection = cms.string(
-        'userFloat("sv_prob") > 0.001 '
+        'userFloat("sv_prob") > 0.005 '
         '&& userFloat("fitted_cos_theta_2D") >= 0'
         '&& ( (userFloat("fitted_mass") > 4.5 && userFloat("fitted_mass") < 6.)'
         '|| (userFloat("fitted_barMass") > 4.5 && userFloat("fitted_barMass") < 6.)  )'

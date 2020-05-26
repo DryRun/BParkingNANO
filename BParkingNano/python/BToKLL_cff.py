@@ -9,9 +9,9 @@ electronPairsForKee = cms.EDProducer(
     lep2Selection = cms.string(''),
     preVtxSelection = cms.string(
         'abs(userCand("l1").vz - userCand("l2").vz) <= 1. && mass() < 5 '
-        '&& mass() > 0 && charge() == 0 && userFloat("lep_deltaR") > 0.03'
+        '&& mass() > 0 && charge() == 0 && userFloat("lep_deltaR") > 0.00'
     ),
-    postVtxSelection = cms.string('userFloat("sv_chi2") < 998 && userFloat("sv_prob") > 1.e-5'),
+    postVtxSelection = cms.string('userFloat("sv_chi2") < 998 && userFloat("sv_prob") > 1.e-4'),
 )
 
 BToKee = cms.EDProducer(
@@ -23,11 +23,11 @@ BToKee = cms.EDProducer(
     beamSpot = cms.InputTag("offlineBeamSpot"),
     kaonSelection = cms.string(''),
     preVtxSelection = cms.string(
-        'pt > 3. && userFloat("min_dr") > 0.03 '
+        'pt > 3. && userFloat("min_dr") > 0.00 '
         '&& mass < 7. && mass > 4.'
         ),
     postVtxSelection = cms.string(
-        'userInt("sv_OK") == 1 && userFloat("sv_prob") > 0.001 '
+        'userInt("sv_OK") == 1 && userFloat("sv_prob") > 0.005 '
         '&& userFloat("fitted_cos_theta_2D") >= 0 '
         '&& userFloat("fitted_mass") > 4.5 && userFloat("fitted_mass") < 6.'
     ),
@@ -40,8 +40,8 @@ muonPairsForKmumu = cms.EDProducer(
     transientTracksSrc = cms.InputTag('muonTrgSelector', 'SelectedTransientMuons'),
     lep1Selection = cms.string('pt > 1.0'),
     lep2Selection = cms.string(''),
-    preVtxSelection = cms.string('abs(userCand("l1").vz - userCand("l2").vz) <= 1. && mass() < 5 '
-                                 '&& mass() > 0 && charge() == 0 && userFloat("lep_deltaR") > 0.03'),
+    preVtxSelection = cms.string('abs(userCand("l1").vz - userCand("l2").vz) <= 1. && mass() < 4.5 '
+                                 '&& mass() > 1.5 && charge() == 0 && userFloat("lep_deltaR") > 0.0'),
     postVtxSelection = electronPairsForKee.postVtxSelection,
 )
 
@@ -55,11 +55,11 @@ BToKmumu = cms.EDProducer(
     kaonSelection = cms.string(''),
     # This in principle can be different between electrons and muons
     preVtxSelection = cms.string(
-        'pt > 3. && userFloat("min_dr") > 0.03'
+        'pt > 3. && userFloat("min_dr") > 0.0'
         '&& mass < 7. && mass > 4.'
         ),
     postVtxSelection = cms.string(
-        'userInt("sv_OK") == 1 && userFloat("sv_prob") > 0.001 '
+        'userInt("sv_OK") == 1 && userFloat("sv_prob") > 0.005 '
         '&& userFloat("fitted_cos_theta_2D") >= 0'
         '&& userFloat("fitted_mass") > 4.5 && userFloat("fitted_mass") < 6.'
     ),
