@@ -27,4 +27,11 @@
 #skim_version = "v2_5_4" # Back to trk pT 500 MeV, phi pT 750 MeV, remove dimuon dR>0.03
 #skim_version = "vTEST" # Testing data production
 #skim_version = "v2_6" # Bump version for data production
-skim_version = "v2_6_1" # Retry 2018D with auto splitting
+#skim_version = "v2_6_1" # Retry data with auto splitting
+#skim_version = "v2_6_2" # Retry 2018D with smaller job size
+#skim_version = "v2_6_3" # Retry 2018D (except part4), due to "unsubmitted" backup # Killed these, previous job still running...
+#skim_version = "v2_6_4" # 2018D once again.... also A/B/C recovery jobs
+#skim_version = "v2_6_5" # 2018D again... restore maxJobRuntime, last round was getting killed
+#skim_version = "v2_6_6" # Recovery task for 2018D
+#skim_version = "v2_6_7" # Bd probefilter MC is finally done!
+skim_version = "v2_7_0" # Save masses for genparticles

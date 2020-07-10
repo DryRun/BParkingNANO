@@ -64,7 +64,7 @@ if __name__ == '__main__':
         this_config.section_('JobType')
         this_config.JobType.pluginName = 'Analysis'
         this_config.JobType.psetName = '../test/run_nano_FFR_AllJpsiMuMu_cfg.py'
-        #this_config.JobType.maxJobRuntimeMin = 2750
+        this_config.JobType.maxJobRuntimeMin = 2750
         this_config.JobType.allowUndistributedCMSSW = True
 
         this_config.section_('User')
@@ -77,13 +77,15 @@ if __name__ == '__main__':
 
         this_config.General.requestName = name
         common_branch = 'mc' if isMC else 'data'
-        #this_config.Data.splitting = 'FileBased' if isMC else 'LumiBased'
-        this_config.Data.splitting = 'FileBased' if isMC else 'Automatic'
+        this_config.Data.splitting = 'FileBased' if isMC else 'LumiBased'
+        #this_config.Data.splitting = 'FileBased' if isMC else 'Automatic'
         if not isMC:
             this_config.Data.lumiMask = info.get(
                 'lumimask', 
                 common[common_branch].get('lumimask', None)
             )
+            if "%d" in this_config.Data.lumiMask and part is not None:
+              this_config.Data.lumiMask = this_config.Data.lumiMask % part
         else:
             this_config.Data.lumiMask = ''
 

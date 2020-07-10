@@ -101,6 +101,14 @@ if __name__ == '__main__':
         ]
         
         config.JobType.outputFiles = ['_'.join(['BParkNANO', 'mc' if isMC else 'data', production_tag])+'.root']
+
+        # Temporary: allow invalidated datasets (Bs probe filter MC is bugged)
+        allowInvalid = info.get(
+          "allowInvalid",
+          False
+        )
+        if allowInvalid:
+          config.Data.allowNonValidInputDataset = True
         
         print config
         submit(config)
