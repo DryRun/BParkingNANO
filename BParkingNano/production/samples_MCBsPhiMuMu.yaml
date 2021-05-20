@@ -25,12 +25,12 @@ samples:
 #  BsToJpsiPhi_BMuonFilter_SoftQCDnonDv1:
 #    dataset: /BsToJpsiPhi_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM
 #    isMC: True
-#
+##
 #  BsToJpsiPhi_BMuonFilter_SoftQCDnonDv2:
 #    dataset: /BsToJpsiPhi_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-N1_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
 #    isMC: True
 #
-#  BsToPhiJpsi_ToMuMu_MuFilter_SoftQCDnonD:
-#    dataset: /BsToPhiJpsi_ToMuMu_MuFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
-#    isMC: True
+  BsToPhiJpsi_ToMuMu_MuFilter_SoftQCDnonD:
+    dataset: /BsToPhiJpsi_ToMuMu_MuFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
 

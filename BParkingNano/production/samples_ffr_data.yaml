@@ -1,6 +1,6 @@
 common:
   data:
-    lumimask : https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt #/afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_backhalf.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
+    lumimask : https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt #/afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_backhalf.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
     splitting: 50
     globaltag: 102X_dataRun2_v11
   mc:
@@ -8,39 +8,39 @@ common:
     globaltag: 102X_upgrade2018_realistic_v15
 
 samples:
-#  data_Run2018A_part%d:    
-#    dataset: /ParkingBPH%d/Run2018A-05May2019-v1/MINIAOD
-#    isMC: False
-#    #lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018A.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
-#    parts: 
-#      - 1
-#      - 2
-#      - 3
-#      - 4
-#      - 5
-#      - 6
-#  data_Run2018B_part%d:
-#    dataset: /ParkingBPH%d/Run2018B-05May2019-v2/MINIAOD 
-#    isMC: False
-#    #lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018B.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
-#    parts: 
-#      - 1
-#      - 2
-#      - 3
-#      - 4
-#      - 5
-#      - 6
-#  data_Run2018C_part%d: 
-#    dataset: /ParkingBPH%d/Run2018C-05May2019-v1/MINIAOD 
-#    isMC: False
-#    #lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018C.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
-#    parts: 
-#      - 1
-#      - 2
-#      - 3
-#      - 4
-#      - 5
-#      - 6
+  data_Run2018A_part%d:    
+    dataset: /ParkingBPH%d/Run2018A-05May2019-v1/MINIAOD
+    isMC: False
+    #lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018A.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
+    parts: 
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+  data_Run2018B_part%d:
+    dataset: /ParkingBPH%d/Run2018B-05May2019-v2/MINIAOD 
+    isMC: False
+    #lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018B.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
+    parts: 
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+  data_Run2018C_part%d: 
+    dataset: /ParkingBPH%d/Run2018C-05May2019-v1/MINIAOD 
+    isMC: False
+    #lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018C.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
+    parts: 
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
 #  data_Run2018D_part%d:
 #    dataset: /ParkingBPH%d/Run2018D-05May2019promptD-v1/MINIAOD
 #    isMC: False
@@ -55,28 +55,28 @@ samples:
 #      - 5
 ##      - 6
       
-  data_Run2018D1_part%d:
-    dataset: /ParkingBPH%d/Run2018D-05May2019promptD-v1/MINIAOD
-    isMC: False
-    globaltag: 102X_dataRun2_Prompt_v14
-    lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018D1.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
-    splitting: 40
-    parts:
-      - 1
-      - 2
-      - 3
-      #- 4
-      - 5
-  data_Run2018D2_part%d:
-    dataset: /ParkingBPH%d/Run2018D-05May2019promptD-v1/MINIAOD
-    isMC: False
-    globaltag: 102X_dataRun2_Prompt_v14
-    lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018D2.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
-    splitting: 40
-    parts:
-      - 1
-      - 2
-      - 3
-      #- 4
-      - 5
+#  data_Run2018D1_part%d:
+#    dataset: /ParkingBPH%d/Run2018D-05May2019promptD-v1/MINIAOD
+#    isMC: False
+#    globaltag: 102X_dataRun2_Prompt_v14
+#    lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018D1.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
+#    splitting: 40
+#    parts:
+#      - 1
+#      - 2
+#      - 3
+#      - 4
+#      - 5
+#  data_Run2018D2_part%d:
+#    dataset: /ParkingBPH%d/Run2018D-05May2019promptD-v1/MINIAOD
+#    isMC: False
+#    globaltag: 102X_dataRun2_Prompt_v14
+#    lumimask : /afs/cern.ch/user/d/dryu/BFrag/CMSSW_10_2_15_skim/src/PhysicsTools/BParkingNano/production/lumimask_2018D2.txt #https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
+#    splitting: 40
+#    parts:
+#      - 1
+#      - 2
+#      - 3
+#      - 4
+#      - 5
 

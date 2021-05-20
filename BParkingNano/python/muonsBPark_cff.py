@@ -9,9 +9,12 @@ muonTrgSelector = cms.EDProducer("MuonTriggerSelector",
                                  prescales = cms.InputTag("patTrigger"),
                                  objects = cms.InputTag("slimmedPatTrigger"),
                                  vertexCollection = cms.InputTag("offlineSlimmedPrimaryVertices"),
-                                 
+                                 l1Muon = cms.InputTag("gmtStage2Digis","Muon"),
+
                                  ##for the output trigger matched collection
                                  maxdR_matching = cms.double(0.1),
+                                 l1dR_matching = cms.double(0.2),
+
                                  
                                  ## for the output selected collection (tag + all compatible in dZ)
                                  dzForCleaning_wrtTrgMuon = cms.double(1.),
@@ -72,9 +75,16 @@ muonBParkTable = cms.EDProducer("SimpleCandidateFlatTableProducer",
         inTimeMuon = Var("passed('InTimeMuon')",bool,doc="inTimeMuon ID"),
         isTriggering = Var("userInt('isTriggering')", int,doc="flag the reco muon is also triggering"),
         isTriggering_HLT_Mu7_IP4 = Var("userInt('isTriggering_HLT_Mu7_IP4')", int, doc="Reco muon matched to HLT_Mu7_IP4 trigger muon"),
-        isTriggering_HLT_Mu9_IP5 = Var("userInt('isTriggering_HLT_Mu9_IP5')", int, doc="Reco muon matched to HLT_Mu7_IP4 trigger muon"),
-        isTriggering_HLT_Mu9_IP6 = Var("userInt('isTriggering_HLT_Mu9_IP6')", int, doc="Reco muon matched to HLT_Mu7_IP4 trigger muon"),
-        isTriggering_HLT_Mu12_IP6 = Var("userInt('isTriggering_HLT_Mu12_IP6')", int, doc="Reco muon matched to HLT_Mu7_IP4 trigger muon"),
+        isTriggering_HLT_Mu9_IP5 = Var("userInt('isTriggering_HLT_Mu9_IP5')", int, doc="Reco muon matched to HLT_Mu9_IP5 trigger muon"),
+        isTriggering_HLT_Mu9_IP6 = Var("userInt('isTriggering_HLT_Mu9_IP6')", int, doc="Reco muon matched to HLT_Mu9_IP6 trigger muon"),
+        isTriggering_HLT_Mu12_IP6 = Var("userInt('isTriggering_HLT_Mu12_IP6')", int, doc="Reco muon matched to HLT_Mu12_IP6 trigger muon"),
+
+        isTriggering_L1_Mu7er1p5 = Var("userInt('isTriggering_L1_Mu7er1p5')", int, doc="Reco muon matched to L1_Mu7er1p5"),
+        isTriggering_L1_Mu8er1p5 = Var("userInt('isTriggering_L1_Mu8er1p5')", int, doc="Reco muon matched to L1_Mu8er1p5"),
+        isTriggering_L1_Mu9er1p5 = Var("userInt('isTriggering_L1_Mu9er1p5')", int, doc="Reco muon matched to L1_Mu9er1p5"),
+        isTriggering_L1_Mu10er1p5 = Var("userInt('isTriggering_L1_Mu10er1p5')", int, doc="Reco muon matched to L1_Mu10er1p5"),
+        isTriggering_L1_Mu12er1p5 = Var("userInt('isTriggering_L1_Mu12er1p5')", int, doc="Reco muon matched to L1_Mu12er1p5"),
+
     ),
 )
 

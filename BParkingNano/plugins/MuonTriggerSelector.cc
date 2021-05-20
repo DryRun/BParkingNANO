@@ -11,6 +11,7 @@
 #include "FWCore/Utilities/interface/StreamID.h"
 #include "FWCore/Framework/interface/EventSetup.h"
 #include "FWCore/Framework/interface/ESHandle.h"
+#include "DataFormats/Math/interface/deltaR.h"
 
 #include "DataFormats/VertexReco/interface/Vertex.h"
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
@@ -24,6 +25,7 @@
 #include "DataFormats/PatCandidates/interface/TriggerPath.h"
 #include "DataFormats/PatCandidates/interface/TriggerEvent.h"
 #include "DataFormats/PatCandidates/interface/TriggerAlgorithm.h"
+#include "DataFormats/L1Trigger/interface/Muon.h"
 
 #include "MagneticField/Engine/interface/MagneticField.h"
 #include "MagneticField/Records/interface/IdealMagneticFieldRecord.h"
@@ -52,6 +54,18 @@ public:
   static const std::vector<ParkingTriggers_t> parkingTriggers_;
   static const std::map<ParkingTriggers_t, std::string> triggerStrings_;
 
+  enum ParkingL1Seeds_t {
+    kL1_Mu7er1p5,
+    kL1_Mu8er1p5,
+    kL1_Mu9er1p5,
+    kL1_Mu10er1p5,
+    kL1_Mu12er1p5
+  };
+  static const std::vector<ParkingL1Seeds_t> parkingL1seeds_;
+  static const std::map<ParkingL1Seeds_t, std::string> l1Strings_;
+  static const std::map<ParkingL1Seeds_t, double> l1SeedPtCuts_; // Determine pass/fail by emulating cuts on L1 objects
+  static const std::map<ParkingL1Seeds_t, double> l1SeedEtaCuts_;
+
 
 private:
 
@@ -65,6 +79,7 @@ private:
 
   //for trigger match
   const double maxdR_;
+  const double l1dR_;
 
   //for filter wrt trigger
   const double dzTrg_cleaning_; // selects primary vertex
@@ -72,11 +87,47 @@ private:
   const double ptMin_;          // min pT in all muons for B candidates
   const double absEtaMax_;      //max eta ""
   const bool softMuonsOnly_;    //cuts muons without soft ID
+
+  edm::EDGetTokenT<l1t::MuonBxCollection> l1Muon_;
 };
 
 const std::vector<MuonTriggerSelector::ParkingTriggers_t> MuonTriggerSelector::parkingTriggers_ = {MuonTriggerSelector::kHLT_Mu7_IP4, MuonTriggerSelector::kHLT_Mu9_IP5, MuonTriggerSelector::kHLT_Mu9_IP6, MuonTriggerSelector::kHLT_Mu12_IP6};
-const std::map<MuonTriggerSelector::ParkingTriggers_t, std::string> MuonTriggerSelector::triggerStrings_ = {{MuonTriggerSelector::kHLT_Mu7_IP4, "HLT_Mu7_IP4"},  {MuonTriggerSelector::kHLT_Mu9_IP5, "HLT_Mu9_IP5"},  {MuonTriggerSelector::kHLT_Mu9_IP6, "HLT_Mu9_IP6"},  {MuonTriggerSelector::kHLT_Mu12_IP6, "HLT_Mu12_IP6"}};
+const std::map<MuonTriggerSelector::ParkingTriggers_t, std::string> MuonTriggerSelector::triggerStrings_ = {
+  {MuonTriggerSelector::kHLT_Mu7_IP4, "HLT_Mu7_IP4"},  
+  {MuonTriggerSelector::kHLT_Mu9_IP5, "HLT_Mu9_IP5"},  
+  {MuonTriggerSelector::kHLT_Mu9_IP6, "HLT_Mu9_IP6"},  
+  {MuonTriggerSelector::kHLT_Mu12_IP6, "HLT_Mu12_IP6"}};
 
+const std::vector<MuonTriggerSelector::ParkingL1Seeds_t> MuonTriggerSelector::parkingL1seeds_ = {
+  MuonTriggerSelector::kL1_Mu7er1p5, 
+  MuonTriggerSelector::kL1_Mu8er1p5, 
+  MuonTriggerSelector::kL1_Mu9er1p5, 
+  MuonTriggerSelector::kL1_Mu10er1p5, 
+  MuonTriggerSelector::kL1_Mu12er1p5};
+
+const std::map<MuonTriggerSelector::ParkingL1Seeds_t, std::string> MuonTriggerSelector::l1Strings_ = {
+  {MuonTriggerSelector::kL1_Mu7er1p5, "L1_Mu7er1p5"},
+  {MuonTriggerSelector::kL1_Mu8er1p5, "L1_Mu8er1p5"},
+  {MuonTriggerSelector::kL1_Mu9er1p5, "L1_Mu9er1p5"},
+  {MuonTriggerSelector::kL1_Mu10er1p5, "L1_Mu10er1p5"},
+  {MuonTriggerSelector::kL1_Mu12er1p5, "L1_Mu12er1p5"}
+};
+
+const std::map<MuonTriggerSelector::ParkingL1Seeds_t, double> MuonTriggerSelector::l1SeedPtCuts_ = {
+  {MuonTriggerSelector::kL1_Mu7er1p5, 7.},
+  {MuonTriggerSelector::kL1_Mu8er1p5, 8.},
+  {MuonTriggerSelector::kL1_Mu9er1p5, 9.},
+  {MuonTriggerSelector::kL1_Mu10er1p5, 10.},
+  {MuonTriggerSelector::kL1_Mu12er1p5, 12.}
+};
+
+const std::map<MuonTriggerSelector::ParkingL1Seeds_t, double> MuonTriggerSelector::l1SeedEtaCuts_ = {
+  {MuonTriggerSelector::kL1_Mu7er1p5, 1.5},
+  {MuonTriggerSelector::kL1_Mu8er1p5, 1.5},
+  {MuonTriggerSelector::kL1_Mu9er1p5, 1.5},
+  {MuonTriggerSelector::kL1_Mu10er1p5, 1.5},
+  {MuonTriggerSelector::kL1_Mu12er1p5, 1.5}
+};
 
 MuonTriggerSelector::MuonTriggerSelector(const edm::ParameterSet &iConfig):
   muonSrc_( consumes<std::vector<pat::Muon>> ( iConfig.getParameter<edm::InputTag>( "muonCollection" ) ) ),
@@ -85,10 +136,12 @@ MuonTriggerSelector::MuonTriggerSelector(const edm::ParameterSet &iConfig):
   triggerPrescales_(consumes<pat::PackedTriggerPrescales>(iConfig.getParameter<edm::InputTag>("prescales"))),
   vertexSrc_( consumes<reco::VertexCollection> ( iConfig.getParameter<edm::InputTag>( "vertexCollection" ) ) ),
   maxdR_(iConfig.getParameter<double>("maxdR_matching")),
+  l1dR_(iConfig.getParameter<double>("l1dR_matching")),
   dzTrg_cleaning_(iConfig.getParameter<double>("dzForCleaning_wrtTrgMuon")),
   ptMin_(iConfig.getParameter<double>("ptMin")),
   absEtaMax_(iConfig.getParameter<double>("absEtaMax")),
-  softMuonsOnly_(iConfig.getParameter<bool>("softMuonsOnly"))
+  softMuonsOnly_(iConfig.getParameter<bool>("softMuonsOnly")), 
+  l1Muon_(consumes<l1t::MuonBxCollection>(iConfig.getParameter<edm::InputTag>("l1Muon")))
 {
   // produce 2 collections: trgMuons (tags) and SelectedMuons (probes & tags if survive preselection cuts)
   produces<pat::MuonCollection>("trgMuons");
@@ -240,6 +293,52 @@ void MuonTriggerSelector::produce(edm::Event& iEvent, const edm::EventSetup& iSe
     }
   }
 
+  // Match reco muons to L1 objects
+  std::map<int, std::map<ParkingL1Seeds_t, bool>> recoMuonWhichL1Seed;
+  edm::Handle<l1t::MuonBxCollection> l1Muon;
+  iEvent.getByToken(l1Muon_, l1Muon);
+  std::vector<pair<pat::TriggerObjectStandAlone,int>> l1Objects;
+
+  /*
+  for(l1t::MuonBxCollection::const_iterator it=l1Muon->begin(0); it!=l1Muon->end(0); it++){
+    pat::TriggerObjectStandAlone l1obj(it->p4());
+    l1obj.setCollection("L1Mu");
+    l1obj.addTriggerObjectType(trigger::TriggerL1Mu);
+    l1obj.setCharge(it->charge());
+    l1Objects.emplace_back(l1obj,it->hwIso());
+  }
+  */
+  for (unsigned int muIdx = 0; muIdx < muons->size(); ++muIdx) {
+    const pat::Muon& reco_muon = (*muons)[muIdx];
+
+    // Find L1 seed matches in dR cone
+    std::vector<l1t::MuonBxCollection::const_iterator> l1_matches;
+    for (l1t::MuonBxCollection::const_iterator l1_muon = l1Muon->begin(0); l1_muon != l1Muon->end(0); ++l1_muon) {
+      if (l1_muon->hwQual() < 12) {
+        continue;
+      }
+      double reco_eta = reco_muon.eta();
+      double reco_phi = reco_muon.phi();
+      double l1_eta = l1_muon->etaAtVtx();
+      double l1_phi = l1_muon->phiAtVtx();
+      if (pow(reco_eta - l1_eta, 2) + pow(reco_phi - l1_phi, 2) < l1dR_ * l1dR_) {
+        l1_matches.push_back(l1_muon);
+      }
+    }
+
+    // Loop over matched L1 seeds, looking for a seed that passes cuts
+    for (auto& it_l1_seed : parkingL1seeds_) {
+      recoMuonWhichL1Seed[muIdx][it_l1_seed] = false;
+      for (auto& it_l1_muon : l1_matches) {
+        if ((it_l1_muon->pt() > l1SeedPtCuts_.at(it_l1_seed)) && (fabs(it_l1_muon->eta()) < l1SeedEtaCuts_.at(it_l1_seed))) {
+          recoMuonWhichL1Seed[muIdx][it_l1_seed] = true;
+          break; 
+        }
+      }
+    }
+  }
+
+
   // now produce output for analysis (code simplified loop of trg inside)
   // trigger muon + all compatible in dz with any tag
   for (unsigned int muIdx = 0; muIdx < muons->size(); ++muIdx) {
@@ -252,14 +351,14 @@ void MuonTriggerSelector::produce(edm::Event& iEvent, const edm::EventSetup& iSe
     if (softMuonsOnly_ && !mu.isSoftMuon(PV)) continue;
 
     // same PV as the tag muon, both tag and probe only dz selection
-    bool SkipMuon = true;
-    for (const pat::Muon & trgmu : *trgmuons_out) {
-      if ( fabs(mu.vz() - trgmu.vz()) > dzTrg_cleaning_ && dzTrg_cleaning_ > 0 )
-        continue;
-      SkipMuon = false;
-    }
-    // needs decision: what about events without trg muon? now we SKIP them
-    if (SkipMuon)  continue;
+    //bool SkipMuon = true;
+    //for (const pat::Muon & trgmu : *trgmuons_out) {
+    //  if ( fabs(mu.vz() - trgmu.vz()) > dzTrg_cleaning_ && dzTrg_cleaning_ > 0 )
+    //    continue;
+    //  SkipMuon = false;
+    //}
+    //// needs decision: what about events without trg muon? now we SKIP them
+    //if (SkipMuon)  continue;
 
 
     // build transient track
@@ -270,6 +369,9 @@ void MuonTriggerSelector::produce(edm::Event& iEvent, const edm::EventSetup& iSe
     muons_out->back().addUserInt("isTriggering", muonIsTrigger[muIdx]);
     for (auto& it_trig : parkingTriggers_) {
       muons_out->back().addUserInt("isTriggering_" + triggerStrings_.at(it_trig), (recoMuonWhichTrigger[muIdx][it_trig] ? 1 : 0));
+    }
+    for (auto& it_l1_seed : parkingL1seeds_) {
+      muons_out->back().addUserInt("isTriggering_" + l1Strings_.at(it_l1_seed), (recoMuonWhichL1Seed[muIdx][it_l1_seed] ? 1 : 0));
     }
     trans_muons_out->emplace_back(muonTT);
   }

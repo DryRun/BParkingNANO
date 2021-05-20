@@ -16,9 +16,9 @@ samples:
     isMC: True
     allowInvalid: True
 
-#  BdToJpsiKstar_SoftQCDnonD:
-#    dataset: /BdToJpsiKstar_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
-#    isMC: True
+  BdToJpsiKstar_SoftQCDnonD:
+    dataset: /BdToJpsiKstar_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
 
 #  BdToJpsiKstar_BMuonFilter_SoftQCDnonDv1:
 #    dataset: /BdToJpsiKstar_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-N1_102X_upgrade2018_realistic_v15-v1/MINIAODSIM
@@ -28,8 +28,8 @@ samples:
 #    dataset: /BdToJpsiKstar_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM
 #    isMC: True
 #
-#  BdToKstarJpsi_ToMuMu_MuFilter_SoftQCDnonD:
-#    dataset: /BdToKstarJpsi_ToMuMu_MuFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
-#    isMC: True
+  BdToKstarJpsi_ToMuMu_MuFilter_SoftQCDnonD:
+    dataset: /BdToKstarJpsi_ToMuMu_MuFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-PUPoissonAve20_102X_upgrade2018_realistic_v15-v2/MINIAODSIM
+    isMC: True
 
   

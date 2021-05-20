@@ -34,4 +34,12 @@
 #skim_version = "v2_6_5" # 2018D again... restore maxJobRuntime, last round was getting killed
 #skim_version = "v2_6_6" # Recovery task for 2018D
 #skim_version = "v2_6_7" # Bd probefilter MC is finally done!
-skim_version = "v2_7_0" # Save masses for genparticles
+#skim_version = "v2_7_0" # Save masses for genparticles
+#skim_version = "v2_7_1" # Recovery task #2 for 2018D
+#skim_version = "v2_8_0" # Test if trgmuoncount is killing events on MC
+#skim_version = "v2_8_1" # Inclusive samples without the SkipMuon bit
+#skim_version = "v2_8_2" # Didn't add 5122 (Lambda_b) to pdgIds list
+#skim_version = "v2_8_3" # Add 2212s to ProbeTracks_genPartIdx
+#							2/17/21: resubmitted Bs as well, which hadn't been resubmitted since 2_8_0.
+#skim_version = "v2_9_0" # Add L1 trigger info for muons
+skim_version = "v3_0_0" # Add high pT triggers
